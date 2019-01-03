@@ -1,21 +1,21 @@
 defmodule Roman do
-  @doc """
+  @moduledoc """
   Convert the number to a roman number.
   """
   @spec numerals(pos_integer) :: String.t()
   def numerals(number) do
-    to_charlist(number) |> to_roman |> to_string
+    number |> to_charlist |> to_roman |> to_string
   end
 
   defp to_roman([]), do: ''
-  defp to_roman(number) do
-    [head | tail] = number
+  defp to_roman([head | tail]) do
     <<head>> |> Integer.parse |> elem(0)
-      |> Kernel.*(:math.pow(10, length(number)-1))
+      |> Kernel.*(:math.pow(10, length([head | tail]) - 1))
       |> trunc |> roman_symbol
       |> Kernel.++(to_roman(tail))
   end
 
+  # credo:disable-for-lines:47
   defp roman_symbol(0), do: ''
   defp roman_symbol(number) when number >= 1000 do
     case number do
@@ -63,5 +63,4 @@ defmodule Roman do
       9 -> 'IX'
     end
   end
-  
 end

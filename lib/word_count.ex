@@ -1,18 +1,18 @@
 defmodule Words do
-  @doc """
+  @moduledoc """
   Count the number of words in the sentence.
 
   Words are compared case-insensitively.
   """
   @spec count(String.t()) :: map
   def count(sentence) do
-    normalize(sentence)
+    sentence |> normalize
       |> String.split([" ", "_", ", "])
       |> count_words(%{})
   end
 
   def normalize(sentence) do 
-    String.replace(sentence, ~r/ +/, " ")
+    sentence |> String.replace(~r/ +/, " ")
       |> String.downcase
   end
 
@@ -20,7 +20,7 @@ defmodule Words do
 
   def count_words([head | tail], word_map) do
     if word_map[head] != nil do
-      count_words(tail, Map.put(word_map, head, word_map[head]+1))
+      count_words(tail, Map.put(word_map, head, word_map[head] + 1))
     else
       count_words(tail, Map.put(word_map, head, 1))
     end

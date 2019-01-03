@@ -1,4 +1,7 @@
 defmodule BeerSong do
+  @moduledoc """
+  Get the traditional beer song.
+  """
   @doc """
   Get a single verse of the beer song
   """
