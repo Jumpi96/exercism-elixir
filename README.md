@@ -2,8 +2,11 @@
 
 Elixir track in exercism.io.
 
-### Running iex
+### Running *iex*
 `iex -S mix`
 
-### Running iex
+### Running tests
 `mix test`
+
+### Running *credo*
+`mix credo`
