@@ -106,7 +106,7 @@ defmodule Zipper do
   """
   @spec set_value(Z.t(), any) :: Z.t()
   def set_value(z, v) do
-    z.node |> Map.put(:value, v) |> set_node(z)
+    %{z | node: %{z.node | value: v}}
   end
 
   @doc """
@@ -114,7 +114,7 @@ defmodule Zipper do
   """
   @spec set_left(Z.t(), BT.t()) :: Z.t()
   def set_left(z, l) do
-    z.node |> Map.put(:left, l) |> set_node(z)
+    %{z | node: %{z.node | left: l}}
   end
 
   @doc """
@@ -122,11 +122,6 @@ defmodule Zipper do
   """
   @spec set_right(Z.t(), BT.t()) :: Z.t()
   def set_right(z, r) do
-    z.node |> Map.put(:right, r) |> set_node(z)
-  end
-
-  @spec set_node(BT.t(), Z.t()) :: Z.t()
-  def set_node(n, z) do
-    z |> Map.put(:node, n)
+    %{z | node: %{z.node | right: r}}
   end
 end
