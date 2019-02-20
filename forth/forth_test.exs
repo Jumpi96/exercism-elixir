@@ -24,7 +24,7 @@ defmodule ForthTest do
     assert s == "1 2 3 4 5"
   end
 
-  @tag :pending
+  # @tag :pending
   test "non-word characters are separators" do
     # Note the Ogham Space Mark ( ), this is a spacing character.
     s =

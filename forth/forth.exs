@@ -1,6 +1,6 @@
 defmodule Forth do
   defstruct stack: [], state: %{}
-  @separators ["\n", "\r", "\t", " ", "\x00", "\x01"]
+  @regex ~r/([0-9]*)?([A-z]*)?([+-\/*])?/
   @unary_operators ["DUP", "DROP"]
   @binary_operators ["/", "*", "+", "-", "SWAP", "OVER"]
 
@@ -15,11 +15,17 @@ defmodule Forth do
   """
   @spec eval(Forth, String.t()) :: Forth
   def eval(ev, s) do
-    {stack, state} = s 
-      |> String.upcase
-      |> String.split(@separators)      
+    {stack, state} = s
+      |> process_input  
       |> do_eval(nil, nil, [], ev)
     %Forth{stack: stack, state: state}
+  end
+
+  defp process_input(s) do
+    @regex
+      |> Regex.scan(String.upcase(s))
+      |> Enum.map(&(List.first(&1)))
+      |> Enum.filter(&(&1 != ""))
   end
 
   def do_eval([], first_arg, second_arg, stack, state) do

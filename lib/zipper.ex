@@ -30,6 +30,11 @@ end
 
 defmodule Zipper do
   defstruct node: nil, trail: []
+  @moduledoc """
+  A zipper is a technique of representing an aggregate data 
+  structure so that it is convenient for writing 
+  """
+
   @doc """
   Get a zipper focused on the root node.
   """
